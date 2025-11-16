@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EaseStay - Hotel Booking & Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="page active">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-hotel"></i>
+                    <span>EaseStay</span>
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#rooms" class="nav-link">Rooms</a>
+                    <a href="#amenities" class="nav-link">Amenities</a>
+                    <button class="btn-login" onclick="openLoginModal()">
+                        <i class="fas fa-user"></i> Login
+                    </button>
+                </div>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Welcome to EaseStay</h1>
+                <p>Luxury Hotel Booking & Management System</p>
+                <div class="booking-widget">
+                    <h3><i class="fas fa-calendar-alt"></i> Book Your Stay</h3>
+                    <form id="landingBookingForm" class="booking-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-check"></i> Check-in</label>
+                                <input type="date" id="checkin" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-times"></i> Check-out</label>
+                                <input type="date" id="checkout" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-user-friends"></i> Guests</label>
+                                <select id="guests">
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-bed"></i> Rooms</label>
+                                <select id="rooms">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-search"></i> Check Availability
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Why Choose EaseStay?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Zero Double-Booking</h3>
+                        <p>Real-time synchronization prevents overbooking</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Instant Updates</h3>
+                        <p>Live room status tracking</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Smart Analytics</h3>
+                        <p>Occupancy rates and insights</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-concierge-bell"></i>
+                        <h3>Housekeeping Sync</h3>
+                        <p>Automated cleaning schedules</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rooms" class="rooms-section">
+            <div class="container">
+                <h2>Our Rooms & Suites</h2>
+                <div class="rooms-grid" id="roomsGrid">
+                    <div class="loading-state">
+                        <i class="fas fa-spinner fa-spin"></i> Loading rooms...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="amenities" class="amenities-section">
+            <div class="container">
+                <h2>Hotel Amenities</h2>
+                <div class="amenities-grid">
+                    <div class="amenity-card">
+                        <div class="amenity-image">
+                            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Infinity Pool">
+                        </div>
+                        <i class="fas fa-swimming-pool"></i>
+                        <h3>Infinity Pool</h3>
+                        <p>Stunning rooftop infinity pool with panoramic city views</p>
+                    </div>
+                    <div class="amenity-card">
+                        <div class="amenity-image">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fine Dining">
+                        </div>
+                        <i class="fas fa-utensils"></i>
+                        <h3>Fine Dining</h3>
+                        <p>Multiple restaurants with international cuisine</p>
+                    </div>
+                    <div class="amenity-card">
+                        <div class="amenity-image">
+                            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Spa">
+                        </div>
+                        <i class="fas fa-spa"></i>
+                        <h3>Luxury Spa</h3>
+                        <p>Full-service spa and wellness center</p>
+                    </div>
+                    <div class="amenity-card">
+                        <div class="amenity-image">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fitness Center">
+                        </div>
+                        <i class="fas fa-dumbbell"></i>
+                        <h3>Fitness Center</h3>
+                        <p>24/7 gym with modern equipment</p>
+                    </div>
+                    <div class="amenity-card">
+                        <div class="amenity-image">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="High-Speed WiFi">
+                        </div>
+                        <i class="fas fa-wifi"></i>
+                        <h3>High-Speed WiFi</h3>
+                        <p>Complimentary high-speed internet access</p>
+                    </div>
+                    <div class="amenity-card">
+                        <div class="amenity-image">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Valet Parking">
+                        </div>
+                        <i class="fas fa-car"></i>
+                        <h3>Valet Parking</h3>
+                        <p>Complimentary valet parking service</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 EaseStay. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- User Interface -->
+    <div id="userInterface" class="page">
+        <header class="interface-header">
+            <div class="header-content">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h2>Welcome, <span id="userName">Guest</span></h2>
+                        <p>Guest Dashboard</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary" onclick="showMainPage()">
+                        <i class="fas fa-home"></i> Home
+                    </button>
+                    <button class="btn-secondary" onclick="scrollToUserBookings()">
+                        <i class="fas fa-calendar-check"></i> Your Bookings
+                    </button>
+                    <button class="btn-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="interface-content">
+            <div class="container">
+                <section class="dashboard-section">
+                    <h3><i class="fas fa-search"></i> Search & Book Rooms</h3>
+                    <form id="userBookingForm" class="inline-booking-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Check-in</label>
+                                <input type="date" id="userCheckin" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Check-out</label>
+                                <input type="date" id="userCheckout" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Guests</label>
+                                <select id="userGuests">
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-bed"></i> Available Rooms <span id="availableRoomsCount" class="rooms-count"></span></h3>
+                    </div>
+                    <div class="rooms-grid-compact" id="userRoomsGrid">
+                        <div class="loading-state">Loading rooms...</div>
+                    </div>
+                </section>
+
+                <section class="dashboard-section">
+                    <h3><i class="fas fa-calendar-check"></i> My Bookings</h3>
+                    <div class="bookings-list" id="userBookingsList">
+                        <div class="loading-state">Loading bookings...</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Admin Interface -->
+    <div id="adminInterface" class="page">
+        <header class="interface-header admin-header">
+            <div class="header-content">
+                <div class="user-profile">
+                    <div class="avatar admin-avatar">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div>
+                        <h2>Admin Dashboard</h2>
+                        <p>Hotel Management System</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary" onclick="showMainPage()">
+                        <i class="fas fa-home"></i> Home
+                    </button>
+                    <button class="btn-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="interface-content">
+            <div class="container">
+                <section class="stats-section">
+                    <div class="stats-grid" id="adminStatsGrid">
+                        <div class="loading-state">Loading statistics...</div>
+                    </div>
+                </section>
+
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-door-open"></i> Room Management</h3>
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterRooms('all')">All</button>
+                            <button class="filter-tab" onclick="filterRooms('available')">Available</button>
+                            <button class="filter-tab" onclick="filterRooms('occupied')">Occupied</button>
+                            <button class="filter-tab" onclick="filterRooms('maintenance')">Maintenance</button>
+                        </div>
+                    </div>
+                    <div class="rooms-management-grid" id="adminRoomsGrid">
+                        <div class="loading-state">Loading rooms...</div>
+                    </div>
+                </section>
+
+                <section class="dashboard-section">
+                    <h3><i class="fas fa-list-alt"></i> All Bookings</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Room</th>
+                                    <th>Guest</th>
+                                    <th>Check-in</th>
+                                    <th>Check-out</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminBookingsTable">
+                                <tr>
+                                    <td colspan="6" class="loading-state">Loading bookings...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Staff Interface -->
+    <div id="staffInterface" class="page">
+        <header class="interface-header staff-header">
+            <div class="header-content">
+                <div class="user-profile">
+                    <div class="avatar staff-avatar">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <div>
+                        <h2>Staff Dashboard</h2>
+                        <p>Housekeeping & Services</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary" onclick="showMainPage()">
+                        <i class="fas fa-home"></i> Home
+                    </button>
+                    <button class="btn-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="interface-content">
+            <div class="container">
+                <section class="stats-section">
+                    <div class="stats-grid-compact">
+                        <div class="stat-card">
+                            <div class="stat-icon warning">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                            <div>
+                                <div class="stat-number" id="cleaningTasks">0</div>
+                                <div class="stat-label">Rooms Need Cleaning</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <div class="stat-number" id="cleanedRooms">0</div>
+                                <div class="stat-label">Cleaned Today</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon info">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div>
+                                <div class="stat-number" id="occupiedRooms">0</div>
+                                <div class="stat-label">Occupied Rooms</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-tasks"></i> Housekeeping Tasks</h3>
+                        <button class="btn-refresh" onclick="loadStaffTasks()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="tasks-list" id="staffTasksList">
+                        <div class="loading-state">Loading tasks...</div>
+                    </div>
+                </section>
+
+                <section class="dashboard-section">
+                    <h3><i class="fas fa-calendar-alt"></i> Booked Rooms</h3>
+                    <div class="booked-rooms-grid" id="staffBookedRooms">
+                        <div class="loading-state">Loading booked rooms...</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-hotel"></i>
+                <h2>Login to EaseStay</h2>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user-tag"></i> Login as</label>
+                    <select id="role">
+                        <option value="guest">Guest</option>
+                        <option value="staff">Staff</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <div class="modal-footer">
+                <p>Don't have an account? <a href="#" onclick="openRegisterModal(); return false;">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-user-plus"></i>
+                <h2>Create Account</h2>
+            </div>
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-credit-card"></i>
+                <h2>Complete Payment</h2>
+            </div>
+            <form id="paymentForm">
+                <div class="booking-summary">
+                    <h4>Booking Summary</h4>
+                    <div id="paymentSummary"></div>
+                </div>
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="text" id="cvv" placeholder="123" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Name on Card</label>
+                    <input type="text" id="cardName" required>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fas fa-lock"></i> Pay Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Room Status Change Modal -->
+    <div id="roomStatusModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRoomStatusModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-bed"></i>
+                <h2>Change Room Status</h2>
+            </div>
+            <div class="modal-body">
+                <div id="roomStatusInfo" class="room-status-info"></div>
+                <div class="status-change-preview">
+                    <div class="status-preview-item">
+                        <span class="label">Current Status:</span>
+                        <span id="currentStatusBadge" class="status-badge"></span>
+                    </div>
+                    <div class="status-preview-item">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="status-preview-item">
+                        <span class="label">New Status:</span>
+                        <span id="newStatusBadge" class="status-badge"></span>
+                    </div>
+                </div>
+                <p class="confirmation-text">Are you sure you want to change the room status?</p>
+            </div>
+            <div class="modal-footer-actions">
+                <button class="btn-secondary" onclick="closeRoomStatusModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn-primary" id="confirmStatusChangeBtn" onclick="confirmRoomStatusChange()">
+                    <i class="fas fa-check"></i> Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
